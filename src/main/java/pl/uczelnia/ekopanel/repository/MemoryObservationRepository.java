@@ -73,6 +73,15 @@ public class MemoryObservationRepository implements ObservationRepository{
             }
         }
 
+        // id edytowanej obeserwacji nie istnieje
         throw new IllegalArgumentException("Nie znaleziono obserwacji.");
+    }
+
+    @Override
+    public void delete(long id) {
+        boolean isRemoved = this.observations.removeIf(observation -> observation.id()==id);
+        if (!isRemoved){
+            throw new IllegalArgumentException("Nie znaleziono obserwacji.");
+        }
     }
 }
