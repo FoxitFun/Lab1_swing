@@ -1,0 +1,9 @@
+Projekt startowy Swing — Lab 1
+
+W IntelliJ IDEA wybierz File → Open i wskaż rozpakowany folder zawierający pom.xml.
+Ustaw JDK 27 GA jako Project SDK. Uruchom klasę pl.uczelnia.lab1.Main.
+
+Main.java zawiera działające okno z etykietą, przyciskiem i obsługą zdarzenia.
+Rozwijaj tę aplikację w kolejnych zadaniach zamiast rozpoczynać od pustego projektu.
+Galeria układów jest osobną aplikacją do eksperymentów; jej archiwum i instrukcję
+znajdziesz w galerii Swing na stronie Lab 1.
