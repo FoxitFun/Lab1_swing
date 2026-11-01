@@ -84,4 +84,29 @@ public class MemoryObservationRepository implements ObservationRepository{
             throw new IllegalArgumentException("Nie znaleziono obserwacji.");
         }
     }
+
+    @Override
+    public void replaceDataset(List<Region> regions, List<Indicator> indicators,List<Observation> observations) {
+        List<Region> newRegions = new ArrayList<>(regions);
+        List<Indicator> newIndicators = new ArrayList<>(indicators);
+        List<Observation> newObservations = new ArrayList<>();
+
+        long newNextId = 1;
+
+        for (Observation observation : observations) {
+            newObservations.add(new Observation(
+                    newNextId++,
+                    observation.year(),
+                    observation.regionCode(),
+                    observation.indicatorCode(),
+                    observation.value(),
+                    observation.included()
+            ));
+        }
+
+        this.regions = newRegions;
+        this.indicators = newIndicators;
+        this.observations = newObservations;
+        this.nextId = newNextId;
+    }
 }
