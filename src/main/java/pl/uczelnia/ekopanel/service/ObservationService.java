@@ -69,4 +69,82 @@ public class ObservationService {
         return repository.save(observation);
     }
 
+    public void replaceDataset(
+            List<Region> regions,
+            List<Indicator> indicators,
+            List<Observation> observations
+    ) {
+        // 1. Sprawdzenie unikalności kodów regionów
+        Set<String> regionCodes = new HashSet<>();
+
+        for (Region region : regions) {
+            if (!regionCodes.add(region.code())) {
+                throw new IllegalArgumentException(
+                        "Powtórzony kod regionu: " + region.code()
+                );
+            }
+        }
+
+        // 2. Sprawdzenie unikalności kodów wskaźników
+        Set<String> indicatorCodes = new HashSet<>();
+        Map<String, Indicator> indicatorsByCode = new HashMap<>();
+
+        for (Indicator indicator : indicators) {
+            if (!indicatorCodes.add(indicator.code())) {
+                throw new IllegalArgumentException(
+                        "Powtórzony kod wskaźnika: " + indicator.code()
+                );
+            }
+
+            indicatorsByCode.put(indicator.code(), indicator);
+        }
+
+        // 3. Sprawdzenie obserwacji
+        Set<String> observationKeys = new HashSet<>();
+
+        for (Observation observation : observations) {
+
+            // Sprawdzenie klucza obcego regionu
+            if (!regionCodes.contains(observation.regionCode())) {
+                throw new IllegalArgumentException(
+                        "Nieznany kod regionu: " + observation.regionCode()
+                );
+            }
+
+            // Sprawdzenie klucza obcego wskaźnika
+            Indicator indicator = indicatorsByCode.get(
+                    observation.indicatorCode()
+            );
+
+            if (indicator == null) {
+                throw new IllegalArgumentException(
+                        "Nieznany kod wskaźnika: " + observation.indicatorCode()
+                );
+            }
+
+            // Walidacja obserwacji
+            ObservationValidator.validate(
+                    observation.year(),
+                    observation.regionCode(),
+                    observation.indicatorCode(),
+                    observation.value(),
+                    indicator
+            );
+
+            // Sprawdzenie unikalności trójki
+            String key = observation.year()
+                    + "|" + observation.regionCode()
+                    + "|" + observation.indicatorCode();
+
+            if (!observationKeys.add(key)) {
+                throw new IllegalArgumentException(
+                        "Obserwacja dla tego roku, regionu i wskaźnika już istnieje."
+                );
+            }
+        }
+
+        // 4. Dopiero po przejściu wszystkich kontroli podmieniamy dane
+        repository.replaceDataset(regions, indicators, observations);
+    }
+
 }
