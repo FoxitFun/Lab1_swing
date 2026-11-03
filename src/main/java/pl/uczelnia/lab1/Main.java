@@ -1,9 +1,8 @@
 package pl.uczelnia.lab1;
 
-import java.awt.Dimension;
+import java.awt.*;
 
 import javax.swing.*;
-import java.awt.BorderLayout;
 import java.util.List;
 
 import com.formdev.flatlaf.FlatLightLaf;
@@ -28,6 +27,20 @@ public class Main {
             frame.setMinimumSize(new Dimension(480, 360));
             JPanel panel = new JPanel(new BorderLayout(12, 12));
             panel.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
+            JPanel navPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 8));
+//            JPanel navPanel = new JPanel(new GridLayout(1, 4, 8, 8));
+//            JPanel box = new JPanel();
+//            JPanel navPanel = new JPanel(new BoxLayout(box, BoxLayout.Y_AXIS));
+            JButton dataButton = new JButton("Dane");
+            JButton chartsButton = new JButton("Wykres");
+            JButton calcButton = new JButton("Kalkulator");
+            JButton regionDetailsButtons = new JButton("Szczegóły regionu…");
+            navPanel.add(dataButton);
+            navPanel.add(chartsButton);
+            navPanel.add(calcButton);
+            navPanel.add(regionDetailsButtons);
+            panel.add(navPanel, BorderLayout.NORTH);
+            frame.setContentPane(panel);
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
 
