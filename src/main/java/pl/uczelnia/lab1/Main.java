@@ -2,12 +2,7 @@ package pl.uczelnia.lab1;
 
 import java.awt.Dimension;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 import java.awt.BorderLayout;
 import java.util.List;
 
@@ -31,10 +26,12 @@ public class Main {
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setSize(1080, 720);
             frame.setMinimumSize(new Dimension(480, 360));
+            JPanel panel = new JPanel(new BorderLayout(12, 12));
+            panel.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
 
-//            JPanel panel = new JPanel(new BorderLayout(8, 8));
+//
 //            JLabel message = new JLabel("Panel obserwacji ekonomicznych", SwingConstants.CENTER);
 //            JButton button = new JButton("Przywitaj");
 //            button.addActionListener(event -> message.setText("Interfejs reaguje na zdarzenie"));
