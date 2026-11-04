@@ -3,6 +3,7 @@ package pl.uczelnia.lab1;
 import java.awt.*;
 
 import javax.swing.*;
+import javax.swing.text.LabelView;
 import java.util.List;
 
 import com.formdev.flatlaf.FlatLightLaf;
@@ -56,21 +57,15 @@ public class Main {
             chartsButton.addActionListener(e -> cardLayout.show(cardPanel, "CHART"));
             calcButton.addActionListener(e -> cardLayout.show(cardPanel, "CALCULATOR"));
 
+            JLabel statusLabel = new JLabel("Gotowe");
+
             panel.add(navPanel, BorderLayout.NORTH);
             panel.add(cardPanel, BorderLayout.CENTER);
+            panel.add(statusLabel, BorderLayout.SOUTH);
 
             frame.setContentPane(panel);
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
-
-//
-//            JLabel message = new JLabel("Panel obserwacji ekonomicznych", SwingConstants.CENTER);
-//            JButton button = new JButton("Przywitaj");
-//            button.addActionListener(event -> message.setText("Interfejs reaguje na zdarzenie"));
-//
-//            panel.add(message, BorderLayout.CENTER);
-//            panel.add(button, BorderLayout.SOUTH);
-//            frame.setContentPane(panel);
         });
     }
 }
