@@ -27,10 +27,9 @@ public class Main {
             frame.setMinimumSize(new Dimension(480, 360));
             JPanel panel = new JPanel(new BorderLayout(12, 12));
             panel.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
-            JPanel navPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 8));
-//            JPanel navPanel = new JPanel(new GridLayout(1, 4, 8, 8));
-//            JPanel box = new JPanel();
-//            JPanel navPanel = new JPanel(new BoxLayout(box, BoxLayout.Y_AXIS));
+
+            JPanel navPanel = new JPanel(new GridLayout(1, 4, 8, 8));
+
             JButton dataButton = new JButton("Dane");
             JButton chartsButton = new JButton("Wykres");
             JButton calcButton = new JButton("Kalkulator");
