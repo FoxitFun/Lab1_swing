@@ -38,7 +38,27 @@ public class Main {
             navPanel.add(chartsButton);
             navPanel.add(calcButton);
             navPanel.add(regionDetailsButtons);
+            CardLayout cardLayout = new CardLayout();
+            JPanel cardPanel = new JPanel(cardLayout);
+
+            JPanel dataView = new JPanel();
+            JPanel chartView = new JPanel();
+            JPanel calculatorView = new JPanel();
+
+//            dataView.setBackground(Color.BLACK);
+//            chartView.setBackground(Color.BLUE);
+
+            cardPanel.add(dataView, "DATA");
+            cardPanel.add(chartView, "CHART");
+            cardPanel.add(calculatorView, "CALCULATOR");
+
+            dataButton.addActionListener(e -> cardLayout.show(cardPanel, "DATA"));
+            chartsButton.addActionListener(e -> cardLayout.show(cardPanel, "CHART"));
+            calcButton.addActionListener(e -> cardLayout.show(cardPanel, "CALCULATOR"));
+
             panel.add(navPanel, BorderLayout.NORTH);
+            panel.add(cardPanel, BorderLayout.CENTER);
+
             frame.setContentPane(panel);
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
