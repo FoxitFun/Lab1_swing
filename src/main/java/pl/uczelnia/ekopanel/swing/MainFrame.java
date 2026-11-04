@@ -12,4 +12,8 @@ public class MainFrame extends JFrame {
         this.service = service;
     }
 
+    public void showStatus(String message){
+
+    }
+
 }
