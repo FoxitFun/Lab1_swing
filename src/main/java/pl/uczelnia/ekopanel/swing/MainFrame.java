@@ -52,6 +52,12 @@ public class MainFrame extends JFrame {
 
         this.statusLabel = new JLabel("Gotowe");
 
+        JPanel statPanel = new JPanel(new GridLayout(1, 4, 8,8));
+        KpiCardPanel countCard = new KpiCardPanel("Liczba obserwacji");
+        KpiCardPanel meanCard = new KpiCardPanel("Średnia (x̄)");
+        KpiCardPanel medianCard = new KpiCardPanel("Mediana (Me)");
+        KpiCardPanel sdCard = new KpiCardPanel("Odchylenie (s / d)");
+
         panel.add(navPanel, BorderLayout.NORTH);
         panel.add(cardPanel, BorderLayout.CENTER);
         panel.add(statusLabel, BorderLayout.SOUTH);
