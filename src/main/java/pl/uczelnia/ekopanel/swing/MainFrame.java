@@ -58,7 +58,18 @@ public class MainFrame extends JFrame {
         KpiCardPanel medianCard = new KpiCardPanel("Mediana (Me)");
         KpiCardPanel sdCard = new KpiCardPanel("Odchylenie (s / d)");
 
-        panel.add(navPanel, BorderLayout.NORTH);
+        statPanel.add(countCard);
+        statPanel.add(meanCard);
+        statPanel.add(medianCard);
+        statPanel.add(sdCard);
+
+        JPanel northPanel = new JPanel();
+        northPanel.setLayout(new BoxLayout(northPanel, BoxLayout.Y_AXIS));
+
+        northPanel.add(navPanel);
+        northPanel.add(statPanel);
+
+        panel.add(northPanel, BorderLayout.NORTH);
         panel.add(cardPanel, BorderLayout.CENTER);
         panel.add(statusLabel, BorderLayout.SOUTH);
 
