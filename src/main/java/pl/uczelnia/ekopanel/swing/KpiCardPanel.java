@@ -21,6 +21,7 @@ public class KpiCardPanel extends JPanel {
 
         this.titleLabel = new JLabel(title);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 12));
+        titleLabel.setText(title);
 
         this.valueLabel = new JLabel("-");
         valueLabel.setFont(new Font("Arial", Font.PLAIN, 18));
