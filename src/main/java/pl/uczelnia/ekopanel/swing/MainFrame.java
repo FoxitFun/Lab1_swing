@@ -1,17 +1,29 @@
 package pl.uczelnia.ekopanel.swing;
 
+import pl.uczelnia.ekopanel.model.Observation;
+import pl.uczelnia.ekopanel.model.Statistics;
 import pl.uczelnia.ekopanel.service.ObservationService;
+import pl.uczelnia.ekopanel.service.StatisticsService;
 
+import java.math.BigDecimal;
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class MainFrame extends JFrame {
     private final ObservationService service;
+    private final StatisticsService statisticsService;
     private final JLabel statusLabel;
+
+    private final KpiCardPanel countCard;
+    private final KpiCardPanel meanCard;
+    private final KpiCardPanel medianCard;
+    private final KpiCardPanel sdCard;
 
     public MainFrame(ObservationService service){
 
         this.service = service;
+        this.statisticsService = new StatisticsService();
 
         this.setTitle("EkoPanel — GUS BDL");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -53,10 +65,10 @@ public class MainFrame extends JFrame {
         this.statusLabel = new JLabel("Gotowe");
 
         JPanel statPanel = new JPanel(new GridLayout(1, 4, 8,8));
-        KpiCardPanel countCard = new KpiCardPanel("Liczba obserwacji");
-        KpiCardPanel meanCard = new KpiCardPanel("Średnia (x̄)");
-        KpiCardPanel medianCard = new KpiCardPanel("Mediana (Me)");
-        KpiCardPanel sdCard = new KpiCardPanel("Odchylenie (s / d)");
+        this.countCard = new KpiCardPanel("Liczba obserwacji");
+        this.meanCard = new KpiCardPanel("Średnia (x̄)");
+        this.medianCard = new KpiCardPanel("Mediana (Me)");
+        this.sdCard = new KpiCardPanel("Odchylenie (s / d)");
 
         statPanel.add(countCard);
         statPanel.add(meanCard);
@@ -74,6 +86,7 @@ public class MainFrame extends JFrame {
         panel.add(statusLabel, BorderLayout.SOUTH);
 
         this.setContentPane(panel);
+        this.refreshKpiCards();
 
     }
 
@@ -81,4 +94,28 @@ public class MainFrame extends JFrame {
         this.statusLabel.setText(message);
     }
 
+    public void refreshKpiCards(){
+        List<Observation> observationResults = service.findAllObservations();
+        Statistics stats = statisticsService.calculate(observationResults);
+
+        countCard.setMetric(
+                String.valueOf(stats.count()),
+                ""
+        );
+
+        meanCard.setMetric(
+                String.valueOf(stats.mean()),
+                ""
+        );
+
+        medianCard.setMetric(
+                String.valueOf(stats.median()),
+                ""
+        );
+
+        sdCard.setMetric(
+                String.valueOf(stats.sampleSd()),
+                ""
+        );
+    }
 }

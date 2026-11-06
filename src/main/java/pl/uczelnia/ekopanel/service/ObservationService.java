@@ -147,4 +147,8 @@ public class ObservationService {
         repository.replaceDataset(regions, indicators, observations);
     }
 
+    public List<Observation> findAllObservations() {
+        return repository.findAllObservations();
+    }
+
 }
