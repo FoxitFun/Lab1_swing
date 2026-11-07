@@ -1,4 +1,3 @@
-
 package pl.uczelnia.ekopanel.service;
 
 import pl.uczelnia.ekopanel.model.Indicator;
@@ -145,6 +144,10 @@ public class ObservationService {
 
         // 4. Dopiero po przejściu wszystkich kontroli podmieniamy dane
         repository.replaceDataset(regions, indicators, observations);
+    }
+
+    public void delete(long id) {
+        repository.delete(id);
     }
 
     public List<Observation> findAllObservations() {

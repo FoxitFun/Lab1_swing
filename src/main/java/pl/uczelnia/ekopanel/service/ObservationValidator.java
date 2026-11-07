@@ -19,6 +19,12 @@ public class ObservationValidator {
             );
         }
 
+        if (indicatorCode == null || !indicatorCode.strip().matches("[A-Z][A-Z0-9_]{1,29}")) {
+            throw new IllegalArgumentException(
+                    "Kod wskaźnika musi składać się z wielkich liter, cyfr i podkreśleń."
+            );
+        }
+
         if (value == null) {
             throw new IllegalArgumentException(
                     "Wartość nie może być pusta."

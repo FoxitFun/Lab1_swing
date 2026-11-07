@@ -1,9 +1,7 @@
 package pl.uczelnia.ekopanel.swing;
 
-import java.awt.*;
 import javax.swing.*;
-import javax.swing.border.Border;
-
+import java.awt.*;
 
 public class KpiCardPanel extends JPanel {
 
@@ -12,30 +10,46 @@ public class KpiCardPanel extends JPanel {
     private final JLabel subTitleLabel;
 
     public KpiCardPanel(String title) {
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(Color.BLACK),
-                BorderFactory.createEmptyBorder(10, 12, 10, 12)
-        ));
+        titleLabel = new JLabel(title);
+        valueLabel = new JLabel("—");
+        subTitleLabel = new JLabel(" ");
 
-        this.titleLabel = new JLabel(title);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 12));
-        titleLabel.setText(title);
+        add(titleLabel);
+        add(Box.createVerticalStrut(4));
+        add(valueLabel);
+        add(Box.createVerticalStrut(2));
+        add(subTitleLabel);
 
-        this.valueLabel = new JLabel("-");
-        valueLabel.setFont(new Font("Arial", Font.PLAIN, 18));
-
-        this.subTitleLabel = new JLabel();
-        subTitleLabel.setFont(new Font("Arial", Font.PLAIN, 11));
-
-        this.add(titleLabel);
-        this.add(valueLabel);
-        this.add(subTitleLabel);
+        applyStyle();
     }
 
     public void setMetric(String formattedValue, String subtitle) {
         valueLabel.setText(formattedValue);
-        subTitleLabel.setText(subtitle);
+        subTitleLabel.setText(subtitle == null || subtitle.isEmpty() ? " " : subtitle);
+    }
+
+    /** Po zmianie motywu (updateComponentTreeUI) odświeżamy kolory obramowania i czcionki. */
+    @Override
+    public void updateUI() {
+        super.updateUI();
+        if (titleLabel != null) {
+            SwingUtilities.invokeLater(this::applyStyle);
+        }
+    }
+
+    private void applyStyle() {
+        Color border = UIManager.getColor("Component.borderColor");
+        if (border == null) border = Color.GRAY;
+        setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(border),
+                BorderFactory.createEmptyBorder(10, 12, 10, 12)
+        ));
+        Font base = UIManager.getFont("Label.font");
+        if (base == null) base = new JLabel().getFont();
+        titleLabel.setFont(base.deriveFont(Font.PLAIN, 12f));
+        valueLabel.setFont(base.deriveFont(Font.BOLD, 18f));
+        subTitleLabel.setFont(base.deriveFont(Font.PLAIN, 11f));
     }
 }
