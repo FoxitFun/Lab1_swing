@@ -93,8 +93,36 @@ public class MainFrame extends JFrame {
 
         formFields.add(includedBox, gbc);
 
-//      Umieszczenie formularza w widoku danych
-        dataView.add(formFields, BorderLayout.NORTH);
+//          Panel przycisków
+        JPanel formBtnPanel = new JPanel(new GridLayout(1, 3, 8, 8));
+
+        JButton newBtnForm = new JButton("Nowa");
+        JButton saveBtnForm = new JButton("Zapisz");
+        JButton deleteBtnForm = new JButton("Usuń");
+
+        formBtnPanel.add(newBtnForm);
+        formBtnPanel.add(saveBtnForm);
+        formBtnPanel.add(deleteBtnForm);
+
+//          Panel łączący pola i przyciski
+        JPanel formPanel = new JPanel(new BorderLayout(8, 8));
+
+        formPanel.add(formFields, BorderLayout.NORTH);
+        formPanel.add(formBtnPanel, BorderLayout.SOUTH);
+
+//          ScrollPane
+        JScrollPane formScrollPane = new JScrollPane(formPanel);
+
+        formScrollPane.setHorizontalScrollBarPolicy(
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER
+        );
+        formScrollPane.setVerticalScrollBarPolicy(
+                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED
+        );
+
+        formScrollPane.setPreferredSize(new Dimension(800, 220));
+
+        dataView.add(formScrollPane, BorderLayout.NORTH);
 
 
         JPanel chartView = new JPanel();
