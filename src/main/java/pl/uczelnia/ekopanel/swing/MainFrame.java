@@ -1,6 +1,8 @@
 package pl.uczelnia.ekopanel.swing;
 
+import pl.uczelnia.ekopanel.model.Indicator;
 import pl.uczelnia.ekopanel.model.Observation;
+import pl.uczelnia.ekopanel.model.Region;
 import pl.uczelnia.ekopanel.model.Statistics;
 import pl.uczelnia.ekopanel.service.ObservationService;
 import pl.uczelnia.ekopanel.service.StatisticsService;
@@ -47,7 +49,107 @@ public class MainFrame extends JFrame {
         CardLayout cardLayout = new CardLayout();
         JPanel cardPanel = new JPanel(cardLayout);
 
-        JPanel dataView = new JPanel();
+        JPanel dataView = new JPanel(new BorderLayout(12, 12));
+
+        JPanel formFields = new JPanel(new GridBagLayout());
+
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.anchor = GridBagConstraints.WEST;
+
+//      Pola formularza
+//        Wiersz 0
+        JLabel yearLabel = new JLabel("Rok:");
+        JTextField yearField = new JTextField("2025");
+//        Wiersz 1
+        JLabel regionLabel = new JLabel("Województwo:");
+        JComboBox<Region> regionCombo = new JComboBox<>(
+                service.findAllRegions().toArray(new Region[0])
+        );
+//        Wiersz 2
+        JLabel indicatorLabel = new JLabel("Wskaźnik GUS:");
+        JComboBox<Indicator> indicatorCombo = new JComboBox<>(
+                service.findAllIndicators().toArray(new Indicator[0])
+        );
+//        Wiersz 3
+        JLabel valueLabel = new JLabel("Wartość:");
+        JTextField valueField = new JTextField("5,80");
+
+//        Wiersz 4
+        JCheckBox includedBox = new JCheckBox("Uwzględnij w analizie", true);
+
+//      Wiersz 0, kolumna 0
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 0;
+        gbc.fill = GridBagConstraints.NONE;
+
+        formFields.add(yearLabel, gbc);
+
+//      Wiersz 0, kolumna 1
+        gbc.gridx = 1;
+        gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        formFields.add(yearField, gbc);
+
+//      Wiersz 1, kolumna 0
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.weightx = 0;
+        gbc.fill = GridBagConstraints.NONE;
+
+        formFields.add(regionLabel, gbc);
+
+//      Wiersz 1, kolumna 1
+        gbc.gridx = 1;
+        gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        formFields.add(regionCombo, gbc);
+
+//      Wiersz 2, kolumna 0
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.weightx = 0;
+        gbc.fill = GridBagConstraints.NONE;
+
+        formFields.add(indicatorLabel, gbc);
+
+//        Wiersz 2, kolumna 1
+        gbc.gridx = 1;
+        gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        formFields.add(indicatorCombo, gbc);
+
+//        Wiersz 3, kolumna 0
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.weightx = 0;
+        gbc.fill = GridBagConstraints.NONE;
+
+        formFields.add(valueLabel, gbc);
+//        Wiersz 3, kolumna 1
+        gbc.gridx = 1;
+        gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        formFields.add(valueField, gbc);
+//        Wierasz 4, kolumna 0
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.gridwidth = 2;
+        gbc.weightx = 0;
+        gbc.fill = GridBagConstraints.NONE;
+
+        formFields.add(includedBox, gbc);
+
+//      Umieszczenie formularza w widoku danych
+        dataView.add(formFields, BorderLayout.NORTH);
+
+
         JPanel chartView = new JPanel();
         JPanel calculatorView = new JPanel();
 

@@ -151,4 +151,11 @@ public class ObservationService {
         return repository.findAllObservations();
     }
 
+    public List<Region> findAllRegions() {
+        return repository.findAllRegions();
+    }
+
+    public List<Indicator> findAllIndicators() {
+        return repository.findAllIndicators();
+    }
 }
