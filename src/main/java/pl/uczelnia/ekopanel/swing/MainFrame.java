@@ -79,64 +79,11 @@ public class MainFrame extends JFrame {
 //        Wiersz 4
         JCheckBox includedBox = new JCheckBox("Uwzględnij w analizie", true);
 
-//      Wiersz 0, kolumna 0
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.weightx = 0;
-        gbc.fill = GridBagConstraints.NONE;
+        addFormField(formFields, gbc, 0, yearLabel, yearField);
+        addFormField(formFields, gbc, 1, regionLabel, regionCombo);
+        addFormField(formFields, gbc, 2, indicatorLabel, indicatorCombo);
+        addFormField(formFields, gbc, 3, valueLabel, valueField);
 
-        formFields.add(yearLabel, gbc);
-
-//      Wiersz 0, kolumna 1
-        gbc.gridx = 1;
-        gbc.weightx = 1.0;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-
-        formFields.add(yearField, gbc);
-
-//      Wiersz 1, kolumna 0
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.weightx = 0;
-        gbc.fill = GridBagConstraints.NONE;
-
-        formFields.add(regionLabel, gbc);
-
-//      Wiersz 1, kolumna 1
-        gbc.gridx = 1;
-        gbc.weightx = 1.0;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-
-        formFields.add(regionCombo, gbc);
-
-//      Wiersz 2, kolumna 0
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.weightx = 0;
-        gbc.fill = GridBagConstraints.NONE;
-
-        formFields.add(indicatorLabel, gbc);
-
-//        Wiersz 2, kolumna 1
-        gbc.gridx = 1;
-        gbc.weightx = 1.0;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-
-        formFields.add(indicatorCombo, gbc);
-
-//        Wiersz 3, kolumna 0
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        gbc.weightx = 0;
-        gbc.fill = GridBagConstraints.NONE;
-
-        formFields.add(valueLabel, gbc);
-//        Wiersz 3, kolumna 1
-        gbc.gridx = 1;
-        gbc.weightx = 1.0;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-
-        formFields.add(valueField, gbc);
 //        Wierasz 4, kolumna 0
         gbc.gridx = 0;
         gbc.gridy = 4;
@@ -152,9 +99,6 @@ public class MainFrame extends JFrame {
 
         JPanel chartView = new JPanel();
         JPanel calculatorView = new JPanel();
-
-//            dataView.setBackground(Color.BLACK);
-//            chartView.setBackground(Color.BLUE);
 
         cardPanel.add(dataView, "DATA");
         cardPanel.add(chartView, "CHART");
@@ -219,5 +163,23 @@ public class MainFrame extends JFrame {
                 String.valueOf(stats.sampleSd()),
                 ""
         );
+    }
+
+    private void addFormField(JPanel panel, GridBagConstraints gbc, int row, JLabel label, JComponent field){
+//        Pozycja etykiety pola
+        gbc.gridy = row;
+        gbc.gridx = 0;
+        gbc.weightx = 0;
+        gbc.fill = GridBagConstraints.NONE;
+
+        panel.add(label,gbc);
+
+//        Pozycja pola
+        gbc.gridy = row;
+        gbc.gridx = 1;
+        gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        panel.add(field, gbc);
     }
 }
